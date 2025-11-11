@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             InitialAdminUserSeeder::class,
+            AnonymeDiscussionSeeder::class,
         ]);
     }
 }

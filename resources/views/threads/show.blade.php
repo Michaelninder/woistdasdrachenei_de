@@ -14,7 +14,7 @@
         </h1>
         <p class="text-muted">
             <small>
-                Erstellt von: {{ $thread->user->name }} am
+                Erstellt von: {{ $thread->user->name ?? 'Anonymer Benutzer' }} am
                 {{ $thread->created_at->format('d.m.Y H:i') }}
             </small>
         </p>
@@ -28,7 +28,7 @@
             <div class="card mb-3 shadow-sm">
                 <div class="card-body">
                     <p class="card-text mb-1">
-                        <strong>{{ $message->user->name }}:</strong>
+                        <strong>{{ $message->user->name ?? 'Anonymer Benutzer' }}:</strong>
                         {{ $message->content }}
                     </p>
                     @if ($message->media->count() > 0)
@@ -79,10 +79,13 @@
         @endforelse
     </div>
 
-    @auth
+    @if (Auth::check() || $thread->title === 'Anonyme Diskussion')
         <div class="card shadow-sm mt-4">
             <div class="card-header h5">
                 <i class="bi bi-chat-left-text-fill me-2"></i> Neue Nachricht posten
+                @if ($thread->title === 'Anonyme Diskussion' && !Auth::check())
+                    <span class="badge bg-warning text-dark ms-2">Als Anonymer Benutzer</span>
+                @endif
             </div>
             <div class="card-body">
                 <form
@@ -120,5 +123,9 @@
                 </form>
             </div>
         </div>
-    @endauth
+    @else
+        <div class="alert alert-warning text-center mt-4" role="alert">
+            <i class="bi bi-exclamation-triangle-fill me-2"></i> Bitte melden Sie sich an, um Nachrichten zu posten.
+        </div>
+    @endif
 @endsection

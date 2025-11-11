@@ -77,3 +77,21 @@ Dieses Dokument skizziert die notwendigen Schritte zur Umwandlung der aktuellen 
     *   [x] Erstellung des `layouts.app`-Views.
     *   [x] Erstellung von Views für die Web-Controller (z.B. `threads/index.blade.php`, `threads/show.blade.php`, `threads/create.blade.php`, `thread_messages/edit.blade.php`).
     *   [x] Aktualisierung der Routen in `routes/web.php`, um auf die neuen Web- und API-Controller zu verweisen.
+
+## 9. Deutsche Lokalisierung
+
+*   [x] **Ziel:** Sicherstellung, dass die gesamte Anwendung auf Deutsch ist.
+*   [x] **Schritte:**
+    *   [x] Erstellung einer deutschen Sprachdatei (`resources/lang/de.json`).
+    *   [x] Aktualisierung der `config/app.php`, um das Standard-Locale auf `de` zu setzen.
+    *   [ ] Überprüfung und Anpassung aller Frontend-Texte, Validierungsnachrichten und Systemmeldungen auf Deutsch.
+
+## 10. Anonyme Diskussionsfunktion
+
+*   [x] **Ziel:** Ermöglichung anonymer Nachrichten in einem spezifischen Thread.
+*   [x] **Schritte:**
+    *   [x] Erstellung eines `AnonymeDiscussionSeeder` zur Erstellung eines angepinnten "Anonyme Diskussion" Threads.
+    *   [x] Aktualisierung der `create_thread_messages_table` Migration, um `user_id` nullable zu machen.
+    *   [x] Aktualisierung des `ThreadMessage` Models, um `user_id` als nullable zu reflektieren.
+    *   [x] Aktualisierung des `ThreadMessageController`, um anonyme Nachrichten zu verarbeiten.
+    *   [x] Aktualisierung der `threads.show` View, um anonyme Nachrichten anzuzeigen und das Posten zu ermöglichen.

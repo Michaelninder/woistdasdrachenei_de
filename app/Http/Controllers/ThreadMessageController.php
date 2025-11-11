@@ -30,8 +30,18 @@ class ThreadMessageController extends Controller
             'media_files.*' => 'file|mimes:jpeg,png,jpg,gif,mp4,mov,avi|max:10240', // Max 10MB
         ]);
 
+        $userId = null;
+        if (Auth::check()) {
+            $userId = Auth::id();
+        } elseif ($thread->title === 'Anonyme Diskussion') {
+            // Allow anonymous posting in the "Anonyme Diskussion" thread
+            $userId = null;
+        } else {
+            abort(403, 'Unauthorized action. You must be logged in to post messages.');
+        }
+
         $message = $thread->messages()->create([
-            'user_id' => Auth::id(),
+            'user_id' => $userId,
             'content' => $request->content,
         ]);
 
