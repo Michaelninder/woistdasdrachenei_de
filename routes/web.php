@@ -11,6 +11,9 @@ use Illuminate\Support\Facades\Auth;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/dashboard', function () {
+    return view('welcome');
+});
 
 Route::get('/auth/twitch/redirect', [SocialiteController::class, 'redirectToTwitch'])->name('auth.twitch.redirect');
 Route::get('/auth/twitch/callback', [SocialiteController::class, 'handleTwitchCallback']);
