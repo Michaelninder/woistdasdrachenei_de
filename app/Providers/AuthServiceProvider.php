@@ -3,10 +3,6 @@
 namespace App\Providers;
 
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
-use App\Models\Thread;
-use App\Policies\ThreadPolicy;
-use App\Models\ThreadMessage;
-use App\Policies\ThreadMessagePolicy;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -16,8 +12,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array<class-string, class-string>
      */
     protected $policies = [
-        Thread::class => ThreadPolicy::class,
-        ThreadMessage::class => ThreadMessagePolicy::class,
+        //
     ];
 
     /**

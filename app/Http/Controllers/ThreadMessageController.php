@@ -22,8 +22,6 @@ class ThreadMessageController extends Controller
      */
     public function store(Request $request, Thread $thread)
     {
-        $this->authorize('create', ThreadMessage::class);
-
         $request->validate([
             'content' => 'required|string',
             'media_files' => 'array',
@@ -67,7 +65,9 @@ class ThreadMessageController extends Controller
             abort(404, 'Message not found in this thread.');
         }
 
-        $this->authorize('update', $message);
+        if (Auth::id() !== $message->user_id && Auth::user()->role !== UserRole::Admin) {
+            abort(403, 'Unauthorized action.');
+        }
         return view('thread_messages.edit', compact('thread', 'message'));
     }
 
@@ -80,7 +80,9 @@ class ThreadMessageController extends Controller
             abort(404, 'Message not found in this thread.');
         }
 
-        $this->authorize('update', $message);
+        if (Auth::id() !== $message->user_id && Auth::user()->role !== UserRole::Admin) {
+            abort(403, 'Unauthorized action.');
+        }
 
         $request->validate([
             'content' => 'sometimes|required|string',
@@ -116,10 +118,12 @@ class ThreadMessageController extends Controller
     public function destroy(Thread $thread, ThreadMessage $message)
     {
         if ($message->thread_id !== $thread->id) {
-            abort(404, 'Message not found in this thread.');
+            return response()->json(['message' => 'Message not found in this thread.'], 404);
         }
 
-        $this->authorize('delete', $message);
+        if (Auth::id() !== $message->user_id && Auth::user()->role !== UserRole::Admin) {
+            return response()->json(['message' => 'Unauthorized'], 403);
+        }
 
         // Delete associated media files
         foreach ($message->media as $media) {
