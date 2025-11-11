@@ -95,6 +95,15 @@
         <div class="alert alert-warning text-center" role="alert">
             Momentan haben wir Probleme mit der Authentifizierung (dem Anmelden von
             Nutzern). Ich bitte um Verständnis.
+            <br>
+            Diskussion:
+            <a
+                href="https://discord.com/channels/133198459531558912/1368155872886259843/threads/1437763182922825738"
+                class="alert-link"
+                target="_blank"
+            >
+                CastCrafter Discord
+            </a>
         </div>
     </div>
 
@@ -134,8 +143,17 @@
                     <i class="bi bi-chat-dots-fill me-2"></i> Zum Forum
                 </a>
             </div>
+            @if (Auth::check())
+                <div class="mt-4 text-muted">
+                    Angemeldet als: {{ Auth::user()->name }}
+                </div>
+            @else
+                <div class="mt-4 text-muted">Nicht angemeldet.</div>
+            @endif
+            <div class="mt-2 text-muted">
+                Registrierte Benutzer: {{ \App\Models\User::count() }}
+            </div>
         </div>
-        debug: {{ Auth::check() }}
     </main>
 
     <footer class="footer mt-auto py-3 bg-light text-center">

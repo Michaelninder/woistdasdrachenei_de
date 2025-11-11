@@ -19,8 +19,6 @@ class ThreadController extends Controller
      */
     public function index(Request $request)
     {
-        $this->authorize('viewAny', Thread::class);
-
         $query = Thread::query();
 
         if ($request->has('pinned') && $request->boolean('pinned')) {
