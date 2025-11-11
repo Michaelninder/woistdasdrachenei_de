@@ -38,25 +38,25 @@ Dieses Dokument skizziert die notwendigen Schritte zur Umwandlung der aktuellen 
 
 ## 4. Forum-Kernfunktionalität (Spätere Phase)
 
-*   [ ] **Ziel:** Implementierung der grundlegenden Forum-Funktionen.
-*   [ ] **Schritte:**
-    *   [ ] Erstellung von Models, Controllern und Views für Themen (`Threads`) und Nachrichten (`ThreadMessages`).
-    *   [ ] Implementierung von CRUD-Operationen für Themen und Nachrichten.
-    *   [ ] Anzeige von Themen und Nachrichten in einer übersichtlichen Struktur.
-    *   [ ] Implementierung von Medien-Uploads für Nachrichten (z.B. Bilder, Videos).
+*   [x] **Ziel:** Implementierung der grundlegenden Forum-Funktionen.
+*   [x] **Schritte:**
+    *   [x] Erstellung von Models für Themen (`Threads`) und Nachrichten (`ThreadMessages`). (Migrations sind ebenfalls erstellt)
+    *   [x] Implementierung von CRUD-Operationen für Themen und Nachrichten.
+    *   [x] Anzeige von Themen und Nachrichten in einer übersichtlichen Struktur.
+    *   [x] Implementierung von Medien-Uploads für Nachrichten (z.B. Bilder, Videos). (Migration ist erstellt)
 
 ## 5. UUIDs für Migrationen
 
-*   [ ] **Ziel:** Verwendung von UUIDs anstelle von Auto-Increment-IDs für Primärschlüssel in relevanten Tabellen.
-*   [ ] **Schritte:**
-    *   [ ] Überprüfung bestehender Migrationen und Aktualisierung, um UUIDs für Primärschlüssel zu verwenden (z.B. `users`, `social_accounts`, `threads`, `thread_messages`).
+*   [x] **Ziel:** Verwendung von UUIDs anstelle von Auto-Increment-IDs für Primärschlüssel in relevanten Tabellen.
+*   [x] **Schritte:**
+    *   [x] Überprüfung bestehender Migrationen und Aktualisierung, um UUIDs für Primärschlüssel zu verwenden (z.B. `users`, `social_accounts`, `threads`, `thread_messages`).
     *   [ ] Sicherstellen, dass zukünftige Migrationen standardmäßig UUIDs verwenden.
 
 ## 6. Autorisierung und Berechtigungen
 
-*   [ ] **Ziel:** Sicherstellung, dass Benutzeraktionen basierend auf ihren Rollen eingeschränkt sind.
-*   [ ] **Schritte:**
-    *   [ ] Implementierung von Laravel Gates oder Policies zur Rollen-basierten Autorisierung (z.B. nur Admins/Moderatoren können Beiträge löschen oder bearbeiten).
+*   [x] **Ziel:** Sicherstellung, dass Benutzeraktionen basierend auf ihren Rollen eingeschränkt sind.
+*   [x] **Schritte:**
+    *   [x] Implementierung von Laravel Gates oder Policies zur Rollen-basierten Autorisierung (z.B. nur Admins/Moderatoren können Beiträge löschen oder bearbeiten).
 
 ## 7. Deutsche Lokalisierung
 
