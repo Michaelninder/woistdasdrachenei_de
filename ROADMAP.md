@@ -58,8 +58,17 @@ Dieses Dokument skizziert die notwendigen Schritte zur Umwandlung der aktuellen 
 *   [x] **Schritte:**
     *   [x] Implementierung von Laravel Gates oder Policies zur Rollen-basierten Autorisierung (z.B. nur Admins/Moderatoren können Beiträge löschen oder bearbeiten).
 
-## 7. Deutsche Lokalisierung
+## 7. Custom Error Handling
 
-*   [ ] **Ziel:** Sicherstellung, dass die gesamte Anwendung auf Deutsch ist.
-*   [ ] **Schritte:**
+*   [x] **Ziel:** Implementierung einer benutzerdefinierten Fehlerbehandlung für Nicht-Validierungsfehler.
+*   [x] **Schritte:**
+    *   [x] Erstellung einer `pages.error`-Ansicht zur Anzeige von Fehlercodes.
+    *   [x] Anpassung des `Handler.php`, um HTTP-Fehler (einschließlich 404) abzufangen und die `pages.error`-Ansicht zurückzugeben.
+
+## 8. Deutsche Lokalisierung
+
+*   [x] **Ziel:** Sicherstellung, dass die gesamte Anwendung auf Deutsch ist.
+*   [x] **Schritte:**
+    *   [x] Erstellung einer deutschen Sprachdatei (`resources/lang/de.json`).
+    *   [x] Aktualisierung der `config/app.php`, um das Standard-Locale auf `de` zu setzen.
     *   [ ] Überprüfung und Anpassung aller Frontend-Texte, Validierungsnachrichten und Systemmeldungen auf Deutsch.
