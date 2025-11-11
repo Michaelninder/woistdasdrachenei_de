@@ -105,6 +105,26 @@
                 CastCrafter Discord
             </a>
         </div>
+        <div class="alert alert-info text-center" role="alert">
+            Dieses Projekt ist Open Source! Beteilige dich auf GitHub:
+            <a
+                href="https://github.com/Michaelninder/woistdasdrachenei_de"
+                class="alert-link"
+                target="_blank"
+            >
+                GitHub Repository
+            </a>
+        </div>
+        <div class="alert alert-success text-center" role="alert">
+            Günstige Domains und Webhosting? Schau bei Skrime vorbei und unterstütze uns!
+            <a
+                href="https://skrime.eu/a/Michaelninder"
+                class="alert-link"
+                target="_blank"
+            >
+                Skrime.eu
+            </a>
+        </div>
     </div>
 
     <main class="flex-grow-1">
