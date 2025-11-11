@@ -51,4 +51,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(SocialAccount::class);
     }
+
+    public function threads(): HasMany
+    {
+        return $this->hasMany(Thread::class);
+    }
 }
