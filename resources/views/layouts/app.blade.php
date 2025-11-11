@@ -104,6 +104,7 @@
             <a href="https://fternis.de/imprint" class="text-decoration-none">
                 Impressum (Fabian Ternis)
             </a>
+            Alias: Michaelninder
         </div>
     </footer>
 
