@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\Models\Thread;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Enums\UserRole;
+use App\Http\Controllers\Controller; // Import the base Controller
 
 class ThreadController extends Controller
 {
@@ -25,17 +26,7 @@ class ThreadController extends Controller
             $query->where('is_pinned', true);
         }
 
-        $threads = $query->with('user')->get();
-
-        return view('threads.index', compact('threads'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        return view('threads.create');
+        return response()->json($query->with('user')->get());
     }
 
     /**
@@ -49,10 +40,10 @@ class ThreadController extends Controller
 
         $thread = Auth::user()->threads()->create([
             'title' => $request->title,
-            'is_pinned' => false,
+            'is_pinned' => false, // Only admins can pin, handled in update
         ]);
 
-        return redirect()->route('threads.show', $thread);
+        return response()->json($thread->load('user'), 201);
     }
 
     /**
@@ -60,18 +51,7 @@ class ThreadController extends Controller
      */
     public function show(Thread $thread)
     {
-        return view('threads.show', compact('thread'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Thread $thread)
-    {
-        if (Auth::id() !== $thread->user_id && Auth::user()->role !== UserRole::Admin) {
-            abort(403, 'Unauthorized action.');
-        }
-        return view('threads.edit', compact('thread'));
+        return response()->json($thread->load('user', 'messages.user', 'messages.media'));
     }
 
     /**
@@ -80,7 +60,7 @@ class ThreadController extends Controller
     public function update(Request $request, Thread $thread)
     {
         if (Auth::id() !== $thread->user_id && Auth::user()->role !== UserRole::Admin) {
-            abort(403, 'Unauthorized action.');
+            return response()->json(['message' => 'Unauthorized'], 403);
         }
 
         $request->validate([
@@ -93,12 +73,12 @@ class ThreadController extends Controller
         if ($request->has('is_pinned') && Auth::user()->role === UserRole::Admin) {
             $thread->is_pinned = $request->is_pinned;
         } elseif ($request->has('is_pinned') && Auth::user()->role !== UserRole::Admin) {
-            abort(403, 'Only administrators can pin threads.');
+            return response()->json(['message' => 'Only administrators can pin threads.'], 403);
         }
 
         $thread->save();
 
-        return redirect()->route('threads.show', $thread);
+        return response()->json($thread->load('user'));
     }
 
     /**
@@ -107,11 +87,11 @@ class ThreadController extends Controller
     public function destroy(Thread $thread)
     {
         if (Auth::id() !== $thread->user_id && Auth::user()->role !== UserRole::Admin) {
-            abort(403, 'Unauthorized action.');
+            return response()->json(['message' => 'Unauthorized'], 403);
         }
 
         $thread->delete();
 
-        return redirect()->route('threads.index');
+        return response()->json(['message' => 'Thread deleted successfully.']);
     }
 }

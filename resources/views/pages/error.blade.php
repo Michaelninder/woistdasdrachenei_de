@@ -1,50 +1,41 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Error {{ $error_code }}</title>
-    <style>
-        body {
-            font-family: sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            background-color: #f8f8f8;
-            color: #333;
-        }
-        .error-container {
-            text-align: center;
-            padding: 20px;
-            border-radius: 8px;
-            background-color: #fff;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        h1 {
-            font-size: 4em;
-            margin-bottom: 0.2em;
-            color: #e74c3c;
-        }
-        p {
-            font-size: 1.2em;
-        }
-        a {
-            color: #3498db;
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-    </style>
+    <title>Fehler {{ $error_code ?? 'Unbekannt' }}</title>
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+        crossorigin="anonymous"
+    >
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
+    >
 </head>
-<body>
-    <div class="error-container">
-        <h1>{{ $error_code }}</h1>
-        <p>Oops! Something went wrong.</p>
-        <p>We are sorry, but an error occurred.</p>
-        <a href="/">Go to Homepage</a>
+<body class="bg-light d-flex align-items-center min-vh-100">
+    <div class="container text-center">
+        <h1 class="display-1 fw-bold text-danger">
+            {{ $error_code ?? 'Fehler' }}
+        </h1>
+        <p class="fs-3">
+            <span class="text-danger">Upps!</span> Etwas ist schiefgelaufen.
+        </p>
+        <p class="lead">
+            Die Seite, die Sie suchen, ist möglicherweise nicht verfügbar,
+            existiert nicht oder ein anderer Fehler ist aufgetreten.
+        </p>
+        <a href="/" class="btn btn-primary btn-lg mt-4">
+            <i class="bi bi-house-door-fill me-2"></i> Zur Startseite
+        </a>
     </div>
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"
+    ></script>
 </body>
 </html>

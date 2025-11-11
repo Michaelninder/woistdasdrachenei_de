@@ -65,10 +65,22 @@ Dieses Dokument skizziert die notwendigen Schritte zur Umwandlung der aktuellen 
     *   [x] Erstellung einer `pages.error`-Ansicht zur Anzeige von Fehlercodes.
     *   [x] Anpassung des `Handler.php`, um HTTP-Fehler (einschließlich 404) abzufangen und die `pages.error`-Ansicht zurückzugeben.
 
-## 8. Deutsche Lokalisierung
+## 8. Controller- und View-Refactoring
+
+*   [x] **Ziel:** Trennung von API- und Web-Controllern und Erstellung von Views für die Web-Controller.
+*   [x] **Schritte:**
+    *   [x] Verschieben der bestehenden `ThreadController` und `ThreadMessageController` in den `Api/` Namespace.
+    *   [x] Erstellung neuer Web-Controller (`ThreadController`, `ThreadMessageController`), die Views zurückgeben.
+    *   [x] Erstellung des `layouts.app`-Views.
+    *   [x] Erstellung von Views für die Web-Controller (z.B. `threads/index.blade.php`, `threads/show.blade.php`, `threads/create.blade.php`, `thread_messages/edit.blade.php`).
+    *   [x] Aktualisierung der Routen in `routes/web.php`, um auf die neuen Web- und API-Controller zu verweisen.
+
+## 9. Deutsche Lokalisierung
 
 *   [x] **Ziel:** Sicherstellung, dass die gesamte Anwendung auf Deutsch ist.
 *   [x] **Schritte:**
     *   [x] Erstellung einer deutschen Sprachdatei (`resources/lang/de.json`).
     *   [x] Aktualisierung der `config/app.php`, um das Standard-Locale auf `de` zu setzen.
     *   [ ] Überprüfung und Anpassung aller Frontend-Texte, Validierungsnachrichten und Systemmeldungen auf Deutsch.
+
+

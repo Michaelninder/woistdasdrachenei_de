@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\Models\Thread;
 use App\Models\ThreadMessage;
@@ -9,12 +9,21 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Enums\UserRole;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Controllers\Controller; // Import the base Controller
 
 class ThreadMessageController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth')->except(['index', 'show']);
+    }
+
+    /**
+     * Display a listing of the resource.
+     */
+    public function index(Thread $thread)
+    {
+        return response()->json($thread->messages()->with('user', 'media')->get());
     }
 
     /**
@@ -43,22 +52,18 @@ class ThreadMessageController extends Controller
             }
         }
 
-        return redirect()->route('threads.show', $thread);
+        return response()->json($message->load('user', 'media'), 201);
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Display the specified resource.
      */
-    public function edit(Thread $thread, ThreadMessage $message)
+    public function show(Thread $thread, ThreadMessage $message)
     {
         if ($message->thread_id !== $thread->id) {
-            abort(404, 'Message not found in this thread.');
+            return response()->json(['message' => 'Message not found in this thread.'], 404);
         }
-
-        if (Auth::id() !== $message->user_id && Auth::user()->role !== UserRole::Admin) {
-            abort(403, 'Unauthorized action.');
-        }
-        return view('thread_messages.edit', compact('thread', 'message'));
+        return response()->json($message->load('user', 'media'));
     }
 
     /**
@@ -67,11 +72,11 @@ class ThreadMessageController extends Controller
     public function update(Request $request, Thread $thread, ThreadMessage $message)
     {
         if ($message->thread_id !== $thread->id) {
-            abort(404, 'Message not found in this thread.');
+            return response()->json(['message' => 'Message not found in this thread.'], 404);
         }
 
         if (Auth::id() !== $message->user_id && Auth::user()->role !== UserRole::Admin) {
-            abort(403, 'Unauthorized action.');
+            return response()->json(['message' => 'Unauthorized'], 403);
         }
 
         $request->validate([
@@ -99,7 +104,7 @@ class ThreadMessageController extends Controller
             }
         }
 
-        return redirect()->route('threads.show', $thread);
+        return response()->json($message->load('user', 'media'));
     }
 
     /**
@@ -108,11 +113,11 @@ class ThreadMessageController extends Controller
     public function destroy(Thread $thread, ThreadMessage $message)
     {
         if ($message->thread_id !== $thread->id) {
-            abort(404, 'Message not found in this thread.');
+            return response()->json(['message' => 'Message not found in this thread.'], 404);
         }
 
         if (Auth::id() !== $message->user_id && Auth::user()->role !== UserRole::Admin) {
-            abort(403, 'Unauthorized action.');
+            return response()->json(['message' => 'Unauthorized'], 403);
         }
 
         // Delete associated media files
@@ -122,6 +127,6 @@ class ThreadMessageController extends Controller
 
         $message->delete();
 
-        return redirect()->route('threads.show', $thread);
+        return response()->json(['message' => 'Message deleted successfully.']);
     }
 }

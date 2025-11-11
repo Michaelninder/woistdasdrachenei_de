@@ -2,6 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\SocialiteController;
+use App\Http\Controllers\Api\ThreadController as ApiThreadController;
+use App\Http\Controllers\Api\ThreadMessageController as ApiThreadMessageController;
+use App\Http\Controllers\ThreadController;
+use App\Http\Controllers\ThreadMessageController;
+use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
     return view('welcome');
@@ -13,9 +18,17 @@ Route::get('/auth/twitch/callback', [SocialiteController::class, 'handleTwitchCa
 Route::get('/auth/discord/redirect', [SocialiteController::class, 'redirectToDiscord'])->name('auth.discord.redirect');
 Route::get('/auth/discord/callback', [SocialiteController::class, 'handleDiscordCallback']);
 
-// API Routes for Forum Functionality (Ideally these would be in routes/api.php)
-use App\Http\Controllers\ThreadController;
-use App\Http\Controllers\ThreadMessageController;
+Route::get('/logout', function () {
+    Auth::logout();
+    return redirect('/');
+});
 
+// Web Routes for Forum Functionality
 Route::resource('threads', ThreadController::class);
 Route::resource('threads.messages', ThreadMessageController::class);
+
+// API Routes for Forum Functionality
+Route::prefix('api1')->group(function () {
+    Route::resource('threads', ApiThreadController::class);
+    Route::resource('threads.messages', ApiThreadMessageController::class);
+});
