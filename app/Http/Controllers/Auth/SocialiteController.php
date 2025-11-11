@@ -48,7 +48,7 @@ class SocialiteController extends Controller
                 ]);
 
                 Auth::login($user);
-                return redirect('/dashboard');
+                return redirect('/threads');
             }
         } catch (\Exception $e) {
             return redirect('/login')->with('error', 'Twitch authentication failed: ' . $e->getMessage());
@@ -71,7 +71,7 @@ class SocialiteController extends Controller
 
             if ($socialAccount) {
                 Auth::login($socialAccount->user);
-                return redirect('/dashboard');
+                return redirect('/threads');
             } else {
                 $user = User::where('email', $socialiteUser->getEmail())->first();
 
