@@ -125,6 +125,14 @@
                 Skrime.eu
             </a>
         </div>
+        <div class="alert alert-primary text-center" role="alert">
+            Du willst größere Bilder oder Videos bis zu 20MB auf Discord versenden?
+            Nutze doch
+            <a href="https://dsc.pics" class="alert-link" target="_blank">
+                dsc.pics
+            </a>
+            !  (von mir)
+        </div>
     </div>
 
     <main class="flex-grow-1">
