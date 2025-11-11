@@ -26,6 +26,10 @@ Route::get('/logout', function () {
     return redirect('/');
 });
 
+Route::get('/login', function () {
+    return redirect('/');
+})->name('login');
+
 // Web Routes for Forum Functionality
 Route::resource('threads', ThreadController::class);
 Route::resource('threads.messages', ThreadMessageController::class);
