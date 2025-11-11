@@ -4,19 +4,19 @@ Dieses Dokument skizziert die notwendigen Schritte zur Umwandlung der aktuellen 
 
 ## 1. Benutzerrollen-Definition und -Implementierung
 
-*   [ ] **Ziel:** Einführung eines Rollen-Systems für Benutzer (`admin`, `moderator`, `user`).
-*   [ ] **Schritte:**
-    *   [ ] Erstellung eines PHP-Enums (`App\Enums\UserRole`) für die Rollen `Admin`, `Moderator`, `User`.
-    *   [ ] Hinzufügen einer `role`-Spalte (String oder Enum-Typ) zur `users`-Tabelle über eine neue Migration.
-    *   [ ] Aktualisierung des `User`-Models, um die `role`-Eigenschaft zu nutzen und Standardwerte festzulegen (z.B. `UserRole::User` als Standard).
+*   [x] **Ziel:** Einführung eines Rollen-Systems für Benutzer (`admin`, `moderator`, `user`).
+*   [x] **Schritte:**
+    *   [x] Erstellung eines PHP-Enums (`App\Enums\UserRole`) für die Rollen `Admin`, `Moderator`, `User`.
+    *   [x] Hinzufügen einer `role`-Spalte (String oder Enum-Typ) zur `users`-Tabelle über eine neue Migration.
+    *   [x] Aktualisierung des `User`-Models, um die `role`-Eigenschaft zu nutzen und Standardwerte festzulegen (z.B. `UserRole::User` als Standard).
 
 ## 2. Authentifizierungssystem-Anpassung (OAuth Only)
 
 *   [ ] **Ziel:** Entfernung der E-Mail/Passwort-Authentifizierung und Implementierung von Twitch- und Discord-OAuth als einzige Anmeldemethoden.
 *   [ ] **Schritte:**
-    *   [ ] **Entfernung der Standard-Authentifizierung:**
-        *   [ ] Deaktivierung oder Entfernung aller Routen, Controller-Methoden und Views, die sich auf E-Mail/Passwort-Registrierung und -Login beziehen (z.B. `Auth::routes()`, `LoginController`, `RegisterController`).
-        *   [ ] Anpassung der `User`-Model-Eigenschaften (z.B. `password` auf `nullable` setzen oder entfernen, `email_verified_at` anpassen).
+    *   [x] **Entfernung der Standard-Authentifizierung:**
+        *   [x] Deaktivierung oder Entfernung aller Routen, Controller-Methoden und Views, die sich auf E-Mail/Passwort-Registrierung und -Login beziehen (z.B. `Auth::routes()`, `LoginController`, `RegisterController`).
+        *   [x] Anpassung der `User`-Model-Eigenschaften (z.B. `password` auf `nullable` setzen oder entfernen, `email_verified_at` anpassen).
     *   [ ] **Twitch OAuth Integration:**
         *   [ ] Installation und Konfiguration von Laravel Socialite.
         *   [ ] Hinzufügen der Twitch-Provider-Konfiguration in `config/services.php`.
