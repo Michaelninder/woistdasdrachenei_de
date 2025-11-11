@@ -12,8 +12,8 @@ Dieses Dokument skizziert die notwendigen Schritte zur Umwandlung der aktuellen 
 
 ## 2. Authentifizierungssystem-Anpassung (OAuth Only)
 
-*   [ ] **Ziel:** Entfernung der E-Mail/Passwort-Authentifizierung und Implementierung von Twitch- und Discord-OAuth als einzige Anmeldemethoden.
-*   [ ] **Schritte:**
+*   [x] **Ziel:** Entfernung der E-Mail/Passwort-Authentifizierung und Implementierung von Twitch- und Discord-OAuth als einzige Anmeldemethoden.
+*   [x] **Schritte:**
     *   [x] **Entfernung der Standard-Authentifizierung:**
         *   [x] Deaktivierung oder Entfernung aller Routen, Controller-Methoden und Views, die sich auf E-Mail/Passwort-Registrierung und -Login beziehen (z.B. `Auth::routes()`, `LoginController`, `RegisterController`).
         *   [x] Anpassung der `User`-Model-Eigenschaften (z.B. `password` auf `nullable` setzen oder entfernen, `email_verified_at` anpassen).
@@ -31,26 +31,34 @@ Dieses Dokument skizziert die notwendigen Schritte zur Umwandlung der aktuellen 
 
 ## 3. Datenbank-Migrationen
 
-*   [ ] **Ziel:** Aktualisierung der Datenbankstruktur zur Unterstützung der neuen Rollen und OAuth-Verknüpfungen.
-*   [ ] **Schritte:**
-    *   [ ] Migration zur Hinzufügung der `role`-Spalte zur `users`-Tabelle.
-    *   [ ] Migration zur Erstellung der `social_accounts`-Tabelle (falls erforderlich).
+*   [x] **Ziel:** Aktualisierung der Datenbankstruktur zur Unterstützung der neuen Rollen und OAuth-Verknüpfungen.
+*   [x] **Schritte:**
+    *   [x] Migration zur Hinzufügung der `role`-Spalte zur `users`-Tabelle.
+    *   [x] Migration zur Erstellung der `social_accounts`-Tabelle (falls erforderlich).
 
 ## 4. Forum-Kernfunktionalität (Spätere Phase)
 
 *   [ ] **Ziel:** Implementierung der grundlegenden Forum-Funktionen.
 *   [ ] **Schritte:**
-    *   [ ] Erstellung von Models, Controllern und Views für Themen (`Topics`) und Beiträge (`Posts`).
-    *   [ ] Implementierung von CRUD-Operationen für Themen und Beiträge.
-    *   [ ] Anzeige von Themen und Beiträgen in einer übersichtlichen Struktur.
+    *   [ ] Erstellung von Models, Controllern und Views für Themen (`Threads`) und Nachrichten (`ThreadMessages`).
+    *   [ ] Implementierung von CRUD-Operationen für Themen und Nachrichten.
+    *   [ ] Anzeige von Themen und Nachrichten in einer übersichtlichen Struktur.
+    *   [ ] Implementierung von Medien-Uploads für Nachrichten (z.B. Bilder, Videos).
 
-## 5. Autorisierung und Berechtigungen
+## 5. UUIDs für Migrationen
+
+*   [ ] **Ziel:** Verwendung von UUIDs anstelle von Auto-Increment-IDs für Primärschlüssel in relevanten Tabellen.
+*   [ ] **Schritte:**
+    *   [ ] Überprüfung bestehender Migrationen und Aktualisierung, um UUIDs für Primärschlüssel zu verwenden (z.B. `users`, `social_accounts`, `threads`, `thread_messages`).
+    *   [ ] Sicherstellen, dass zukünftige Migrationen standardmäßig UUIDs verwenden.
+
+## 6. Autorisierung und Berechtigungen
 
 *   [ ] **Ziel:** Sicherstellung, dass Benutzeraktionen basierend auf ihren Rollen eingeschränkt sind.
 *   [ ] **Schritte:**
     *   [ ] Implementierung von Laravel Gates oder Policies zur Rollen-basierten Autorisierung (z.B. nur Admins/Moderatoren können Beiträge löschen oder bearbeiten).
 
-## 6. Deutsche Lokalisierung
+## 7. Deutsche Lokalisierung
 
 *   [ ] **Ziel:** Sicherstellung, dass die gesamte Anwendung auf Deutsch ist.
 *   [ ] **Schritte:**
