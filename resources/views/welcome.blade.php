@@ -30,4 +30,6 @@
             </a>
         </div>
     </div>
+
+    debug: {{ Auth::check() }}
 @endsection

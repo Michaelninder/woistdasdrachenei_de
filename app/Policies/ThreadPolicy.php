@@ -76,4 +76,12 @@ class ThreadPolicy
     {
         return $user->role === UserRole::Admin; // Only Admin can permanently delete
     }
+
+    /**
+     * Determine whether the user can pin the model.
+     */
+    public function pin(User $user, Thread $thread): bool
+    {
+        return $user->role === UserRole::Admin || $user->role === UserRole::Moderator;
+    }
 }

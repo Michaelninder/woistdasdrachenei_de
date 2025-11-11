@@ -19,6 +19,8 @@ class ThreadController extends Controller
      */
     public function index(Request $request)
     {
+        $this->authorize('viewAny', Thread::class);
+
         $query = Thread::query();
 
         if ($request->has('pinned') && $request->boolean('pinned')) {
@@ -31,10 +33,11 @@ class ThreadController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new resource.s
      */
     public function create()
     {
+        $this->authorize('create', Thread::class);
         return view('threads.create');
     }
 
@@ -43,6 +46,8 @@ class ThreadController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create', Thread::class);
+
         $request->validate([
             'title' => 'required|string|max:255',
         ]);
@@ -60,6 +65,7 @@ class ThreadController extends Controller
      */
     public function show(Thread $thread)
     {
+        $this->authorize('view', $thread);
         return view('threads.show', compact('thread'));
     }
 
@@ -68,9 +74,7 @@ class ThreadController extends Controller
      */
     public function edit(Thread $thread)
     {
-        if (Auth::id() !== $thread->user_id && Auth::user()->role !== UserRole::Admin) {
-            abort(403, 'Unauthorized action.');
-        }
+        $this->authorize('update', $thread);
         return view('threads.edit', compact('thread'));
     }
 
@@ -79,9 +83,7 @@ class ThreadController extends Controller
      */
     public function update(Request $request, Thread $thread)
     {
-        if (Auth::id() !== $thread->user_id && Auth::user()->role !== UserRole::Admin) {
-            abort(403, 'Unauthorized action.');
-        }
+        $this->authorize('update', $thread);
 
         $request->validate([
             'title' => 'sometimes|required|string|max:255',
@@ -90,10 +92,9 @@ class ThreadController extends Controller
 
         $thread->title = $request->input('title', $thread->title);
 
-        if ($request->has('is_pinned') && Auth::user()->role === UserRole::Admin) {
+        if ($request->has('is_pinned')) {
+            $this->authorize('pin', $thread); // Assuming a 'pin' ability in policy
             $thread->is_pinned = $request->is_pinned;
-        } elseif ($request->has('is_pinned') && Auth::user()->role !== UserRole::Admin) {
-            abort(403, 'Only administrators can pin threads.');
         }
 
         $thread->save();
@@ -106,9 +107,7 @@ class ThreadController extends Controller
      */
     public function destroy(Thread $thread)
     {
-        if (Auth::id() !== $thread->user_id && Auth::user()->role !== UserRole::Admin) {
-            abort(403, 'Unauthorized action.');
-        }
+        $this->authorize('delete', $thread);
 
         $thread->delete();
 
