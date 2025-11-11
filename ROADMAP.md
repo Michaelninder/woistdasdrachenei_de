@@ -57,6 +57,9 @@ Dieses Dokument skizziert die notwendigen Schritte zur Umwandlung der aktuellen 
 *   [x] **Ziel:** Sicherstellung, dass Benutzeraktionen basierend auf ihren Rollen eingeschränkt sind.
 *   [x] **Schritte:**
     *   [x] Implementierung von Laravel Gates oder Policies zur Rollen-basierten Autorisierung (z.B. nur Admins/Moderatoren können Beiträge löschen oder bearbeiten).
+    *   [x] Erstellung von `ThreadPolicy` und `ThreadMessagePolicy`.
+    *   [x] Registrierung der Policies in `AuthServiceProvider`.
+    *   [x] Aktualisierung der `ThreadController` und `ThreadMessageController` zur Nutzung der Policies.
 
 ## 7. Custom Error Handling
 
@@ -74,13 +77,3 @@ Dieses Dokument skizziert die notwendigen Schritte zur Umwandlung der aktuellen 
     *   [x] Erstellung des `layouts.app`-Views.
     *   [x] Erstellung von Views für die Web-Controller (z.B. `threads/index.blade.php`, `threads/show.blade.php`, `threads/create.blade.php`, `thread_messages/edit.blade.php`).
     *   [x] Aktualisierung der Routen in `routes/web.php`, um auf die neuen Web- und API-Controller zu verweisen.
-
-## 9. Deutsche Lokalisierung
-
-*   [x] **Ziel:** Sicherstellung, dass die gesamte Anwendung auf Deutsch ist.
-*   [x] **Schritte:**
-    *   [x] Erstellung einer deutschen Sprachdatei (`resources/lang/de.json`).
-    *   [x] Aktualisierung der `config/app.php`, um das Standard-Locale auf `de` zu setzen.
-    *   [ ] Überprüfung und Anpassung aller Frontend-Texte, Validierungsnachrichten und Systemmeldungen auf Deutsch.
-
-

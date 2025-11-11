@@ -98,7 +98,7 @@
     <footer class="footer mt-auto py-3 bg-light text-center">
         <div class="container">
             <span class="text-muted">
-                &copy; {{ date('Y') }} Wo ist das Ei?
+                &copy; {{ date('Y') }} WoIstDasDrachenei.de
             </span>
             <span class="text-muted mx-2">|</span>
             <a href="https://fternis.de/imprint" class="text-decoration-none">

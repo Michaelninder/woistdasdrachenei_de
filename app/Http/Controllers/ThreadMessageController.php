@@ -22,6 +22,8 @@ class ThreadMessageController extends Controller
      */
     public function store(Request $request, Thread $thread)
     {
+        $this->authorize('create', ThreadMessage::class);
+
         $request->validate([
             'content' => 'required|string',
             'media_files' => 'array',
@@ -55,9 +57,7 @@ class ThreadMessageController extends Controller
             abort(404, 'Message not found in this thread.');
         }
 
-        if (Auth::id() !== $message->user_id && Auth::user()->role !== UserRole::Admin) {
-            abort(403, 'Unauthorized action.');
-        }
+        $this->authorize('update', $message);
         return view('thread_messages.edit', compact('thread', 'message'));
     }
 
@@ -70,9 +70,7 @@ class ThreadMessageController extends Controller
             abort(404, 'Message not found in this thread.');
         }
 
-        if (Auth::id() !== $message->user_id && Auth::user()->role !== UserRole::Admin) {
-            abort(403, 'Unauthorized action.');
-        }
+        $this->authorize('update', $message);
 
         $request->validate([
             'content' => 'sometimes|required|string',
@@ -111,9 +109,7 @@ class ThreadMessageController extends Controller
             abort(404, 'Message not found in this thread.');
         }
 
-        if (Auth::id() !== $message->user_id && Auth::user()->role !== UserRole::Admin) {
-            abort(403, 'Unauthorized action.');
-        }
+        $this->authorize('delete', $message);
 
         // Delete associated media files
         foreach ($message->media as $media) {
