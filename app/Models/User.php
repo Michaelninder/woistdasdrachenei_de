@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Enums\UserRole;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class User extends Authenticatable
 {
@@ -44,4 +45,10 @@ class User extends Authenticatable
             return [
                 'role' => UserRole::class,
             ];
-        }}
+        }
+
+    public function socialAccounts(): HasMany
+    {
+        return $this->hasMany(SocialAccount::class);
+    }
+}

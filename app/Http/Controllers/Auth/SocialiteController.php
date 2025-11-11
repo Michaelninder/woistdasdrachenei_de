@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Laravel\Socialite\Facades\Socialite;
 use App\Models\User;
+use App\Models\SocialAccount;
 use Illuminate\Support\Facades\Auth;
 use App\Enums\UserRole;
 
@@ -19,22 +20,38 @@ class SocialiteController extends Controller
     public function handleTwitchCallback()
     {
         try {
-            $twitchUser = Socialite::driver('twitch')->user();
+            $socialiteUser = Socialite::driver('twitch')->user();
 
-            $user = User::updateOrCreate(
-                ['email' => $twitchUser->getEmail()],
-                [
-                    'name' => $twitchUser->getName(),
-                    'role' => UserRole::User, // Default role for new users
-                ]
-            );
+            $socialAccount = SocialAccount::where('provider_name', 'twitch')
+                ->where('provider_id', $socialiteUser->getId())
+                ->first();
 
-            Auth::login($user);
+            if ($socialAccount) {
+                Auth::login($socialAccount->user);
+                return redirect('/dashboard');
+            } else {
+                $user = User::where('email', $socialiteUser->getEmail())->first();
 
-            return redirect('/dashboard'); // Redirect to a dashboard or home page
+                if (!$user) {
+                    $user = User::create([
+                        'name' => $socialiteUser->getName(),
+                        'email' => $socialiteUser->getEmail(),
+                        'role' => UserRole::User,
+                    ]);
+                }
+
+                $user->socialAccounts()->create([
+                    'provider_name' => 'twitch',
+                    'provider_id' => $socialiteUser->getId(),
+                    'access_token' => $socialiteUser->token,
+                    'refresh_token' => $socialiteUser->refreshToken,
+                ]);
+
+                Auth::login($user);
+                return redirect('/dashboard');
+            }
         } catch (\Exception $e) {
-            // Handle error, e.g., log it and redirect to an error page
-            return redirect('/login')->with('error', 'Twitch authentication failed.');
+            return redirect('/login')->with('error', 'Twitch authentication failed: ' . $e->getMessage());
         }
     }
 
@@ -46,22 +63,38 @@ class SocialiteController extends Controller
     public function handleDiscordCallback()
     {
         try {
-            $discordUser = Socialite::driver('discord')->user();
+            $socialiteUser = Socialite::driver('discord')->user();
 
-            $user = User::updateOrCreate(
-                ['email' => $discordUser->getEmail()],
-                [
-                    'name' => $discordUser->getName(),
-                    'role' => UserRole::User, // Default role for new users
-                ]
-            );
+            $socialAccount = SocialAccount::where('provider_name', 'discord')
+                ->where('provider_id', $socialiteUser->getId())
+                ->first();
 
-            Auth::login($user);
+            if ($socialAccount) {
+                Auth::login($socialAccount->user);
+                return redirect('/dashboard');
+            } else {
+                $user = User::where('email', $socialiteUser->getEmail())->first();
 
-            return redirect('/dashboard'); // Redirect to a dashboard or home page
+                if (!$user) {
+                    $user = User::create([
+                        'name' => $socialiteUser->getName(),
+                        'email' => $socialiteUser->getEmail(),
+                        'role' => UserRole::User,
+                    ]);
+                }
+
+                $user->socialAccounts()->create([
+                    'provider_name' => 'discord',
+                    'provider_id' => $socialiteUser->getId(),
+                    'access_token' => $socialiteUser->token,
+                    'refresh_token' => $socialiteUser->refreshToken,
+                ]);
+
+                Auth::login($user);
+                return redirect('/dashboard');
+            }
         } catch (\Exception $e) {
-            // Handle error, e.g., log it and redirect to an error page
-            return redirect('/login')->with('error', 'Discord authentication failed.');
+            return redirect('/login')->with('error', 'Discord authentication failed: ' . $e->getMessage());
         }
     }
 }

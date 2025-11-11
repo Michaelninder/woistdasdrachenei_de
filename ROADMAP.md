@@ -25,9 +25,9 @@ Dieses Dokument skizziert die notwendigen Schritte zur Umwandlung der aktuellen 
         *   [x] Recherche und Integration eines geeigneten Discord Socialite Providers (z.B. `socialiteproviders/discord`). Falls kein passender Provider gefunden wird, manuelle Implementierung des OAuth-Flows.
         *   [x] Hinzufügen der Discord-Provider-Konfiguration in `config/services.php`.
         *   [x] Implementierung der OAuth-Routen und Controller-Logik für Discord.
-    *   [ ] **Multi-Provider-Verknüpfung:**
-        *   [ ] Entwicklung einer Strategie zur Verknüpfung mehrerer OAuth-Konten (Twitch, Discord) mit einem einzigen Benutzerkonto, idealerweise basierend auf der E-Mail-Adresse.
-        *   [ ] Erstellung einer neuen Migration und Tabelle (z.B. `social_accounts`) zur Speicherung von Provider-spezifischen IDs, Access/Refresh-Tokens und der Verknüpfung zur `users`-Tabelle.
+    *   [x] **Multi-Provider-Verknüpfung:**
+        *   [x] Entwicklung einer Strategie zur Verknüpfung mehrerer OAuth-Konten (Twitch, Discord) mit einem einzigen Benutzerkonto, idealerweise basierend auf der E-Mail-Adresse.
+        *   [x] Erstellung einer neuen Migration und Tabelle (z.B. `social_accounts`) zur Speicherung von Provider-spezifischen IDs, Access/Refresh-Tokens und der Verknüpfung zur `users`-Tabelle.
 
 ## 3. Datenbank-Migrationen
 
